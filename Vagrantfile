@@ -1,6 +1,3 @@
-# -*- mode: ruby -*-
-# vi: set ft=ruby :
-
 Vagrant::Config.run do |config|
   # All Vagrant configuration is done here. The most common configuration
   # options are documented and commented below. For a complete reference,
@@ -41,17 +38,14 @@ Vagrant::Config.run do |config|
   # some recipes and/or roles.
   #
   config.vm.provision :chef_solo do |chef|
-    #config.vm.share_folder("v-root", "/var/www/nginx-default", ".", :nfs => false)
-    config.vm.share_folder("nginx-conf","/etc/nginx/sites-available","./nginx-conf/", :nfs =>false)
   
     #chef.recipe_url = 'http://sfccpa.com/Downloads/cookbooks.tar.gz'
     chef.cookbooks_path = 'cookbooks'
-    #chef.roles_path = 'cookbooks/roles'
-    #chef.data_bags_path = 'cookbooks/data_bags'
     
     chef.json = {
         :nginx => {
-            :install_method => 'package'
+            :install_method => 'package',
+            :default_site_enabled => true
         },
         :mysql => {
             :server_root_password => "Onthesigs1845",
@@ -62,55 +56,9 @@ Vagrant::Config.run do |config|
     
     chef.add_recipe("apt")
     chef.add_recipe("ohai")
-    chef.add_recipe("nginx")
     chef.add_recipe("phpfastcgi")
+    chef.add_recipe("nginx")
     chef.add_recipe("mysql")
     chef.add_recipe("mysql::server")
   end
-  
-  # Enable provisioning with Puppet stand alone.  Puppet manifests
-  # are contained in a directory path relative to this Vagrantfile.
-  # You will need to create the manifests directory and a manifest in
-  # the file base.pp in the manifests_path directory.
-  #
-  # An example Puppet manifest to provision the message of the day:
-  #
-  # # group { "puppet":
-  # #   ensure => "present",
-  # # }
-  # #
-  # # File { owner => 0, group => 0, mode => 0644 }
-  # #
-  # # file { '/etc/motd':
-  # #   content => "Welcome to your Vagrant-built virtual machine!
-  # #               Managed by Puppet.\n"
-  # # }
-  #
-  # config.vm.provision :puppet do |puppet|
-  #   puppet.manifests_path = "manifests"
-  #   puppet.manifest_file  = "base.pp"
-  # end
-
-  # Enable provisioning with chef server, specifying the chef server URL,
-  # and the path to the validation key (relative to this Vagrantfile).
-  #
-  # The Opscode Platform uses HTTPS. Substitute your organization for
-  # ORGNAME in the URL and validation key.
-  #
-  # If you have your own Chef Server, use the appropriate URL, which may be
-  # HTTP instead of HTTPS depending on your configuration. Also change the
-  # validation key to validation.pem.
-  #
-  # config.vm.provision :chef_client do |chef|
-  #   chef.chef_server_url = "https://api.opscode.com/organizations/ORGNAME"
-  #   chef.validation_key_path = "ORGNAME-validator.pem"
-  # end
-  #
-  # If you're using the Opscode platform, your validator client is
-  # ORGNAME-validator, replacing ORGNAME with your organization name.
-  #
-  # IF you have your own Chef Server, the default validation client name is
-  # chef-validator, unless you changed the configuration.
-  #
-  #   chef.validation_client_name = "ORGNAME-validator"
 end
