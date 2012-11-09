@@ -42,17 +42,16 @@ Vagrant::Config.run do |config|
   #
   config.vm.provision :chef_solo do |chef|
     #config.vm.share_folder("v-root", "/var/www/nginx-default", ".", :nfs => false)
+    config.vm.share_folder("nginx-conf","/etc/nginx/sites-available","./nginx-conf/", :nfs =>false)
   
-    chef.recipe_url = 'http://sfccpa.com/Downloads/cookbooks.tar.gz'
-    #chef.recipe_url = 'https://github.com/opscode-cookbooks/nginx'
-    #chef.cookbooks_path = 'cookbooks'
+    #chef.recipe_url = 'http://sfccpa.com/Downloads/cookbooks.tar.gz'
+    chef.cookbooks_path = 'cookbooks'
     #chef.roles_path = 'cookbooks/roles'
     #chef.data_bags_path = 'cookbooks/data_bags'
     
     chef.json = {
         :nginx => {
-            :install_method => 'package',
-            :default_site_enabled => 'false'
+            :install_method => 'package'
         },
         :mysql => {
             :server_root_password => "Onthesigs1845",
@@ -64,7 +63,7 @@ Vagrant::Config.run do |config|
     chef.add_recipe("apt")
     chef.add_recipe("ohai")
     chef.add_recipe("nginx")
-    chef.add_recipe("php-fastcgi")
+    chef.add_recipe("phpfastcgi")
     chef.add_recipe("mysql")
     chef.add_recipe("mysql::server")
   end

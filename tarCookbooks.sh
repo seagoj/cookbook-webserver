@@ -1,9 +1,10 @@
 dir='cookbooks'
-rm -R -f cookbooks.tar.gz
+rm -f cookbooks.tar.gz
+rm -R -f cookbooks
 mkdir $dir
 cd $dir
 
-git clone git://github.com/seagoj/cookbooks_php-fastcgi.git php-fastcgi
+git clone git://github.com/seagoj/cookbooks_php-fastcgi.git phpfastcgi
 git clone git://github.com/opscode-cookbooks/nginx.git
 git clone git://github.com/opscode-cookbooks/mysql.git
 git clone git://github.com/opscode-cookbooks/build-essential.git
