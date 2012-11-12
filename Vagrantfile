@@ -1,5 +1,5 @@
 Vagrant::Config.run do |config|
-  cookbook_location = 'local';
+  cookbook_location = 'remote';
   
   # All Vagrant configuration is done here. The most common configuration
   # options are documented and commented below. For a complete reference,
@@ -46,7 +46,7 @@ Vagrant::Config.run do |config|
     when 'local'
       chef.cookbooks_path = 'cookbooks'
     when 'remote'
-      chef.recipe_url = 'http://sfccpa.com/Downloads/cookbooks.tar.gz'
+      chef.recipe_url = 'https://github.com/seagoj/WebServerDeploy/raw/master/cookbooks.tar.gz'
     end
     
     chef.json = {
