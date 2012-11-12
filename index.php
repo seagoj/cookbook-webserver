@@ -1,5 +1,0 @@
-<?php
-
-print '<h1>It's alive!!</h1>';
-
-?>

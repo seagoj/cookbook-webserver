@@ -4,16 +4,13 @@ rm -R -f cookbooks
 mkdir $dir
 cd $dir
 
-git clone git://github.com/seagoj/cookbooks_php-fastcgi.git phpfastcgi
-git clone git://github.com/opscode-cookbooks/nginx.git
-git clone git://github.com/opscode-cookbooks/mysql.git
-git clone git://github.com/opscode-cookbooks/build-essential.git
-git clone git://github.com/opscode-cookbooks/ohai.git
-git clone git://github.com/opscode-cookbooks/apt.git
-git clone git://github.com/opscode-cookbooks/openssl.git
-
-cp -r ../cookbooks_mine/nginx/files/default/nginx.conf ../cookbooks/nginx/templates/default/default-site.erb 
+git clone git://github.com/seagoj/cookbook-php5-fpm.git php5-fpm
+git clone git://github.com/seagoj/cookbook-nginx.git nginx
+git clone git://github.com/opscode-cookbooks/mysql.git mysql
+git clone git://github.com/opscode-cookbooks/openssl.git openssl
+git clone git://github.com/seagoj/cookbook-apt.git apt
+git clone git://github.com/seagoj/cookbook-redis.git redis
 
 cd ..
 tar zcvf cookbooks.tar.gz $dir
-#rm -R -f cookbooks
+rm -R -f cookbooks
