@@ -46,7 +46,7 @@ Vagrant::Config.run do |config|
     when 'local'
       chef.cookbooks_path = 'cookbooks'
     when 'remote'
-      chef.recipe_url = 'https://github.com/seagoj/cookbook/raw/master/cookbooks.tar.gz'
+      chef.recipe_url = 'https://github.com/seagoj/cookbook/archive/master.tar.gz'
     end
     
     chef.json = {
