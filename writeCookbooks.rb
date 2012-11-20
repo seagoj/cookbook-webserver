@@ -35,6 +35,7 @@ case method
 		system('git add .gitattributes .gitignore')
 		system('git commit -m "updating '+dir+'.tar.gz"')
 		system('git push git@github.com:seagoj/cookbook.git master')
+		puts 'URL: https://github.com/seagoj/cookbook/raw/master/cookbooks.tar.gz'
 	when 'ftp'
 		require 'net/ftp'
 		ftp = Net::FTP.new(ftp_site)
