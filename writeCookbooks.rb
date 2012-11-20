@@ -1,26 +1,25 @@
 #variables
-dir = 'cookbooks'
 method = 'git'
 
 ftp_site = ''
 ftp_user = ''
 ftp_pass = ''
 
-unless File.directory?(dir)
-	Dir.mkdir(dir)		
-end
+#unless File.directory?(dir)
+#	Dir.mkdir(dir)		
+#end
 
-if File.exists?(dir+'.tar.gz')
-	File.delete(dir+'.tar.gz')
-end
+#if File.exists?(dir+'.tar.gz')
+#	File.delete(dir+'.tar.gz')
+#end
 
-system('git clone git://github.com/seagoj/cookbook-apt.git '+dir+'/apt')
-system('git clone git://github.com/opscode-cookbooks/mysql.git '+dir+'/mysql')
-system('git clone git://github.com/seagoj/cookbook-nginx.git '+dir+'/nginx')
-system('git clone git://github.com/opscode-cookbooks/openssl.git '+dir+'/openssl')
-system('git clone git://github.com/seagoj/cookbook-redis.git '+dir+'/redis')
-system('git clone git://github.com/seagoj/cookbook-php5-fpm.git '+dir+'/php5-fpm')
-system('git clone git://github.com/seagoj/cookbook-bootstrap.git '+dir+'/bootstrap')
+system('git clone git://github.com/seagoj/cookbook-apt.git apt')
+system('git clone git://github.com/opscode-cookbooks/mysql.git mysql')
+system('git clone git://github.com/seagoj/cookbook-nginx.git nginx')
+system('git clone git://github.com/opscode-cookbooks/openssl.git openssl')
+system('git clone git://github.com/seagoj/cookbook-redis.git redis')
+system('git clone git://github.com/seagoj/cookbook-php5-fpm.git php5-fpm')
+system('git clone git://github.com/seagoj/cookbook-bootstrap.git bootstrap')
 #system('tar zcvf '+dir+'.tar.gz '+dir)
 
 #if File.exists?(dir+'.tar.gz')
@@ -30,12 +29,11 @@ system('git clone git://github.com/seagoj/cookbook-bootstrap.git '+dir+'/bootstr
 
 case method
 	when 'git'
-		system('git add '+dir)
-		system('git add writeCookbooks.rb')
-		system('git add .gitattributes .gitignore')
-		system('git commit -m "updating '+dir+'.tar.gz"')
+		#system('git add writeCookbooks.rb')
+		system('git add apt mysql nginx openssl redis php5-fpm bootstrap writeCookbooks.rb .gitattributes .gitignore')
+		system('git commit -m "updating cookbook-master.tar.gz"')
 		system('git push git@github.com:seagoj/cookbook.git master')
-		puts 'URL: https://github.com/seagoj/cookbook/raw/master/cookbooks.tar.gz'
+		puts 'URL: https://github.com/seagoj/cookbook/archive/master.tar.gz'
 	when 'ftp'
 		require 'net/ftp'
 		ftp = Net::FTP.new(ftp_site)
