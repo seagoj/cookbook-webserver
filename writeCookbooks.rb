@@ -21,16 +21,16 @@ system('git clone git://github.com/opscode-cookbooks/openssl.git '+dir+'/openssl
 system('git clone git://github.com/seagoj/cookbook-redis.git '+dir+'/redis')
 system('git clone git://github.com/seagoj/cookbook-php5-fpm.git '+dir+'/php5-fpm')
 system('git clone git://github.com/seagoj/cookbook-bootstrap.git '+dir+'/bootstrap')
-system('tar zcvf '+dir+'.tar.gz '+dir)
+#system('tar zcvf '+dir+'.tar.gz '+dir)
 
-if File.exists?(dir+'.tar.gz')
-	require 'fileutils'
-	FileUtils.rm_rf dir
-end
+#if File.exists?(dir+'.tar.gz')
+#	require 'fileutils'
+#	FileUtils.rm_rf dir
+#end
 
 case method
 	when 'git'
-		system('git add '+dir+'.tar.gz')
+		system('git add '+dir)
 		system('git add writeCookbooks.rb')
 		system('git add .gitattributes .gitignore')
 		system('git commit -m "updating '+dir+'.tar.gz"')
