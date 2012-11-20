@@ -29,6 +29,7 @@ case method
 	when 'git'
 		system('git add '+dir+'.tar.gz')
 		system('git add tarCookbooks.rb')
+		system('git add .gitattributes .gitignore')
 		system('git commit -m "updating '+dir+'.tar.gz"')
 		system('git push git@github.com:seagoj/cookbook.git master')
 		puts Dir.pwd
