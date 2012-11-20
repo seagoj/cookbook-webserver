@@ -1,5 +1,3 @@
-require 'net/ftp'
-
 #variables
 dir = 'cookbooks'
 method = 'git'
@@ -25,6 +23,11 @@ system('git clone git://github.com/seagoj/cookbook-php5-fpm.git '+dir+'/php5-fpm
 system('git clone git://github.com/seagoj/cookbook-bootstrap.git '+dir+'/bootstrap')
 system('tar zcvf '+dir+'.tar.gz '+dir)
 
+if File.exists?(dir+'.tar.gz')
+	require 'fileutils'
+	FileUtils.rm_rf dir
+end
+
 case method
 	when 'git'
 		system('git add '+dir+'.tar.gz')
@@ -32,8 +35,8 @@ case method
 		system('git add .gitattributes .gitignore')
 		system('git commit -m "updating '+dir+'.tar.gz"')
 		system('git push git@github.com:seagoj/cookbook.git master')
-		puts Dir.pwd
 	when 'ftp'
+		require 'net/ftp'
 		ftp = Net::FTP.new(ftp_site)
 		ftp.login(ftp_user,ftp_pass)
 		ftp.put(dir+'.tar.gz','downloads/'+dir+'.tar.gz')
