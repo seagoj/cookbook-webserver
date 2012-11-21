@@ -1,5 +1,13 @@
 Vagrant::Config.run do |config|
-  cookbook_location = 'remote';
+  cookbook_location = 'remote'
+
+  cookbooks = {
+    'apt'=>'git@github.com:seagoj/cookbook-apt.git',
+    'php5-fpm'=>'git@github.com:seagoj/cookbook-php5-fpm.git',
+    'nginx'=>'git@github.com:seagoj/cookbook-nginx.git',
+    'redis::php'=>'git@github.com:seagoj/cookbook-redis.git',
+    'bootstrap'=>'git@github.com:seagoj/cookbook-bootstrap.git'
+  }
   
   # All Vagrant configuration is done here. The most common configuration
   # options are documented and commented below. For a complete reference,
@@ -41,15 +49,33 @@ Vagrant::Config.run do |config|
   # some recipes and/or roles.
   #
   config.vm.provision :chef_solo do |chef|
-  
+     chef.cookbooks_path = 'cookbooks'  
+
     case cookbook_location
     when 'local'
       
     when 'remote'
-      chef.recipe_url = 'https://github.com/seagoj/cookbook/archive/master.tar.gz'
-      chef.cookbooks_path = 'cookbooks-master'
+      #chef.recipe_url = 'https://github.com/seagoj/cookbook/tarball/master
+      unless File.exists?('cookbooks')
+        Dir.mkdir('cookbooks')
+      end
+     cookbooks.each do |k,v|
+        command = 'git clone '+v+' cookbooks/'
+        if k.index(':')
+          command += k[0,k.index(':')]
+        else
+          command += k
+        end
+          system(command)
+          chef.add_recipe(k)
+      end
+
+      #system("git clone git@github.com:seagoj/cookbook-apt.git cookbooks/apt")
+      # chef.recipe_url = 'https://github.com/opscode-cookbooks/apt/archive/master.tar.gz
     end
     
+
+
     chef.json = {
         :nginx => {
             :install_method => 'package',
@@ -63,13 +89,13 @@ Vagrant::Config.run do |config|
         }
      }
     
-    chef.add_recipe("apt")
+    #chef.add_recipe("apt")
     # chef.add_recipe("ohai")
-    chef.add_recipe("php5-fpm")
-    chef.add_recipe("nginx")
+    #chef.add_recipe("php5-fpm")
+    #chef.add_recipe("nginx")
     #chef.add_recipe("mysql")
     #chef.add_recipe("mysql::server")
-    chef.add_recipe("redis::php")
-    chef.add_recipe("bootstrap")
+    #chef.add_recipe("redis::php")
+    #chef.add_recipe("bootstrap")
   end
 end
