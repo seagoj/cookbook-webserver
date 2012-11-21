@@ -44,14 +44,10 @@ Vagrant::Config.run do |config|
   
     case cookbook_location
     when 'local'
-      chef.cookbooks_path = 'cookbooks'
+      
     when 'remote'
-      chef.recipe_url = 'https://github.com/seagoj/cookbook-apt/archive/master.tar.gz'
-      chef.recipe_url = 'https://github.com/seagoj/cookbook-php5-fpm/archive/master.tar.gz'
-      chef.recipe_url = 'https://github.com/seagoj/cookbook-nginx/archive/master.tar.gz'
-      #chef.recipe_url = 'https://github.com/seagoj/cookbook-mysql/archive/master.tar.gz'
-      chef.recipe_url = 'https://github.com/seagoj/cookbook-redis/archive/master.tar.gz'
-      chef.recipe_url = 'https://github.com/seagoj/cookbook-bootstrap/archive/master.tar.gz'
+      chef.recipe_url = 'https://github.com/seagoj/cookbook/archive/master.tar.gz'
+      chef.cookbooks_path = 'cookbooks-master'
     end
     
     chef.json = {
@@ -69,11 +65,11 @@ Vagrant::Config.run do |config|
     
     chef.add_recipe("apt")
     # chef.add_recipe("ohai")
-    # chef.add_recipe("php5-fpm")
-    #chef.add_recipe("nginx")
+    chef.add_recipe("php5-fpm")
+    chef.add_recipe("nginx")
     #chef.add_recipe("mysql")
     #chef.add_recipe("mysql::server")
-    #chef.add_recipe("redis::php")
-    #chef.add_recipe("bootstrap")
+    chef.add_recipe("redis::php")
+    chef.add_recipe("bootstrap")
   end
 end
