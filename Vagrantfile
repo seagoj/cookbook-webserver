@@ -1,12 +1,19 @@
 Vagrant::Config.run do |config|
   cookbook_location = 'remote'
+  # force_update = true
 
   cookbooks = {
     'apt'=>'git@github.com:seagoj/cookbook-apt.git',
     'php5-fpm'=>'git@github.com:seagoj/cookbook-php5-fpm.git',
     'nginx'=>'git@github.com:seagoj/cookbook-nginx.git',
     'redis::php'=>'git@github.com:seagoj/cookbook-redis.git',
-    'bootstrap'=>'git@github.com:seagoj/cookbook-bootstrap.git'
+    'bootstrap'=>'git@github.com:seagoj/cookbook-bootstrap.git',
+    'bootstrap::yakuake'=>'git@github.com:seagoj/cookbook-bootstrap.git',
+    'bootstrap::cairo-dock'=>'git@github.com:seagoj/cookbook-bootstrap.git',
+    'bootstrap::chrome'=>'git@github.com:seagoj/cookbook-bootstrap.git',
+    'bootstrap::dropbox'=>'git@github.com:seagoj/cookbook-bootstrap.git',
+    'bootstrap::sublime-text-2'=>'git@github.com:seagoj/cookbook-bootstrap.git'
+
   }
   
   # All Vagrant configuration is done here. The most common configuration
@@ -41,7 +48,7 @@ Vagrant::Config.run do |config|
 
   # Share an additional folder to the guest VM. The first argument is
   # an identifier, the second is the path on the guest to mount the
-  # folder, and the third is the path on the host to the actual folder.
+  # folder, and the third is the path on the host to the actual folder.  
   # config.vm.share_folder "v-data", "/vagrant_data", "../data"
 
   # Enable provisioning with chef solo, specifying a cookbooks path, roles
@@ -55,6 +62,11 @@ Vagrant::Config.run do |config|
     when 'local'
       
     when 'remote'
+      # if force_update == true
+      # Dir.delete(cookbooks)
+      # end
+
+
       #chef.recipe_url = 'https://github.com/seagoj/cookbook/tarball/master
       unless File.exists?('cookbooks')
         Dir.mkdir('cookbooks')
@@ -76,26 +88,17 @@ Vagrant::Config.run do |config|
     
 
 
-    chef.json = {
-        :nginx => {
-            :install_method => 'package',
-            :default_site_enabled => true,
-            :default_site_template => "php-site.erb"
-        },
-        :mysql => {
-            :server_root_password => "1qaz2wsx3edc",
-            :server_debian_password => "1qaz2wsx3edc",
-            :server_repl_password => "1qaz2wsx3edc"
-        }
-     }
-    
-    #chef.add_recipe("apt")
-    # chef.add_recipe("ohai")
-    #chef.add_recipe("php5-fpm")
-    #chef.add_recipe("nginx")
-    #chef.add_recipe("mysql")
-    #chef.add_recipe("mysql::server")
-    #chef.add_recipe("redis::php")
-    #chef.add_recipe("bootstrap")
-  end
+  #   chef.json = {
+  #       :nginx => {
+  #           :install_method => 'package',
+  #           :default_site_enabled => true,
+  #           :default_site_template => "php-site.erb"
+  #       },
+  #       :mysql => {
+  #           :server_root_password => "1qaz2wsx3edc",
+  #           :server_debian_password => "1qaz2wsx3edc",
+  #           :server_repl_password => "1qaz2wsx3edc"
+  #       }
+  #    }
+  # end
 end
