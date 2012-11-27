@@ -17,7 +17,8 @@ end
 
 system('git init')
 system('git add *')
-system('git commit -m "Commit of default dotfiles')
-system('git remote add origin git@github.com:seagoj/project.git')
+system('git commit -m "Commit dotfiles')
+system('git push')
+# system('git remote add origin git@github.com:seagoj/project.git')
 FileUtils.cp(dotfilesPath+'/.gitattributes','.')
 FileUtils.cp(dotfilesPath+'/.gitignore','.')
